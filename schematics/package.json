@@ -1,0 +1,7 @@
+{
+  "name": "jj-schematics",
+  "version": "0.1.0",
+  "description": "Schematics for jj",
+  "license": "MIT",
+  "schematics": "./collection.json"
+}

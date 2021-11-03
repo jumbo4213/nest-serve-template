@@ -1,0 +1,27 @@
+{{#apiConfig.hasDescription}}
+/**
+{{#apiConfig.description}}
+ * {{.}}
+{{/apiConfig.description}}
+ */
+{{/apiConfig.hasDescription}}
+
+import { BaseApi, RequestConfig, Session } from './base-api';
+
+export class Api<T extends Session> extends BaseApi<T> {
+ {{#routes}}
+ /**
+ {{#comments}}
+  * {{.}}
+ {{/comments}}
+  */
+ {{name}} = ({{#routeArgs}}{{name}}{{#optional}}?{{/optional}}: {{type}}, {{/routeArgs}}) =>
+this.req<{{returnType}}>({
+     url: `{{path}}`,
+     method: '{{method}}',
+     data: {{bodyArg}},
+     {{#hasFormDataParams}}type: 'upload',{{/hasFormDataParams}} {{#hasQuery}}params: {{specificArgs.query.name}},{{/hasQuery}} {{#security}}secure: true,{{/security}} ...{{specificArgs.requestParams.name}}, 
+   })
+ {{/routes}}
+
+}

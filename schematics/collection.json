@@ -1,0 +1,15 @@
+{
+  "$schema": "@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "user-module": {
+      "description": "Schematic to generate a crud module.",
+      "factory": "./user-module/user.factory#main",
+      "schema": "./user-module/schema.json"
+    },
+    "manage-module": {
+      "description": "Schematic to generate a crud module.",
+      "factory": "./manage-module/module.factory#main",
+      "schema": "./manage-module/schema.json"
+    }
+  }
+}

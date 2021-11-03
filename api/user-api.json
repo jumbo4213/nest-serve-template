@@ -1,0 +1,467 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "User example",
+    "description": "The user API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "default",
+      "description": "未标记"
+    }
+  ],
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "NewUser": {
+        "type": "object",
+        "properties": {}
+      },
+      "NewDevice": {
+        "type": "object",
+        "properties": {
+          "udid": {
+            "type": "string",
+            "example": "C3A036DA-6F83-436E-8FE8-9BC7A5B1BA39",
+            "description": "设备ID"
+          },
+          "app": {
+            "type": "object",
+            "description": "客户端app别名"
+          },
+          "platform": {
+            "type": "object",
+            "description": "客户端平台"
+          },
+          "appType": {
+            "type": "object",
+            "description": "客户端app类型"
+          },
+          "brand": {
+            "type": "string",
+            "description": "手机品牌"
+          },
+          "model": {
+            "type": "string",
+            "description": "手机型号"
+          },
+          "pixelRatio": {
+            "type": "number",
+            "description": "设备像素比"
+          },
+          "screenWidth": {
+            "type": "number",
+            "description": "屏幕宽度"
+          },
+          "screenHeight": {
+            "type": "number",
+            "description": "屏幕高度"
+          },
+          "language": {
+            "type": "string",
+            "description": "语言"
+          },
+          "system": {
+            "type": "string",
+            "description": "操作系统及版本"
+          },
+          "xmpushToken": {
+            "type": "string",
+            "description": "小米通知token"
+          },
+          "gtpushToken": {
+            "type": "string",
+            "description": "个推通知token"
+          },
+          "version": {
+            "type": "string",
+            "description": "当前app版本"
+          },
+          "packageVersion": {
+            "type": "string",
+            "description": "当前打包版本"
+          },
+          "from": {
+            "type": "string",
+            "description": "当前来源数据"
+          },
+          "latitude": {
+            "type": "number",
+            "description": "纬度"
+          },
+          "longitude": {
+            "type": "number",
+            "description": "经度"
+          }
+        },
+        "required": [
+          "udid",
+          "app",
+          "platform",
+          "appType",
+          "brand",
+          "model",
+          "pixelRatio",
+          "screenWidth",
+          "screenHeight",
+          "language",
+          "system",
+          "xmpushToken",
+          "gtpushToken",
+          "version",
+          "packageVersion",
+          "from",
+          "latitude",
+          "longitude"
+        ]
+      },
+      "AuthRegister": {
+        "type": "object",
+        "properties": {
+          "device": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewDevice"
+              },
+              {
+                "description": "设备"
+              }
+            ]
+          },
+          "mobile": {
+            "type": "string",
+            "description": "登录手机号",
+            "example": "15000000000"
+          },
+          "nickName": {
+            "type": "string",
+            "description": "用户名",
+            "example": "小军"
+          },
+          "password": {
+            "type": "string",
+            "description": "登录密码",
+            "example": "111111"
+          }
+        },
+        "required": [
+          "device",
+          "mobile",
+          "nickName",
+          "password"
+        ]
+      },
+      "AuthLogin": {
+        "type": "object",
+        "properties": {
+          "device": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewDevice"
+              },
+              {
+                "description": "设备"
+              }
+            ]
+          },
+          "mobile": {
+            "type": "string",
+            "description": "登录手机号",
+            "example": "15000000000"
+          },
+          "password": {
+            "type": "string",
+            "description": "登录密码",
+            "example": "111111"
+          }
+        },
+        "required": [
+          "device",
+          "mobile",
+          "password"
+        ]
+      },
+      "AuthToken": {
+        "type": "object",
+        "properties": {
+          "device": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewDevice"
+              },
+              {
+                "description": "设备"
+              }
+            ]
+          },
+          "authToken": {
+            "type": "string",
+            "description": "验证令牌"
+          }
+        },
+        "required": [
+          "device",
+          "authToken"
+        ]
+      },
+      "WxappEncryptedInfo": {
+        "type": "object",
+        "properties": {}
+      },
+      "AuthWxapp": {
+        "type": "object",
+        "properties": {
+          "device": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewDevice"
+              },
+              {
+                "description": "设备"
+              }
+            ]
+          },
+          "code": {
+            "type": "string",
+            "description": "wx.login code"
+          },
+          "accountInfo": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WxappEncryptedInfo"
+              },
+              {
+                "description": "用户信息(加密)"
+              }
+            ]
+          },
+          "mobileInfo": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/WxappEncryptedInfo"
+              },
+              {
+                "description": "手机号信息(加密)"
+              }
+            ]
+          },
+          "from": {
+            "type": "string",
+            "description": "from"
+          }
+        },
+        "required": [
+          "device",
+          "code"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "index",
+        "summary": "获取二维码图片",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/users/getUserInfo": {
+      "get": {
+        "operationId": "usersGetUserInfo",
+        "summary": "获取用户信息",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "put": {
+        "operationId": "usersUpdate",
+        "summary": "更新当前用户信息",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/devices": {
+      "post": {
+        "operationId": "devicesCreate",
+        "summary": "保存设备信息",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewDevice"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "security": []
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "operationId": "authRegister",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRegister"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "security": []
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "authLogin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "security": []
+      }
+    },
+    "/auth/token": {
+      "post": {
+        "operationId": "authToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthToken"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "token无效或者过期，需重新登录"
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "security": []
+      }
+    },
+    "/auth/wxapp": {
+      "post": {
+        "operationId": "authWxapp",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthWxapp"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "新用户，需要授权用户信息"
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "security": []
+      }
+    },
+    "/profile": {
+      "get": {
+        "operationId": "profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    }
+  }
+}
